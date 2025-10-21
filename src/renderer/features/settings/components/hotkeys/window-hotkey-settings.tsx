@@ -1,23 +1,21 @@
 import isElectron from 'is-electron';
 import { useTranslation } from 'react-i18next';
 
-import { store } from '../../../../../main/features/core/settings';
-
 import {
     SettingOption,
     SettingsSection,
 } from '/@/renderer/features/settings/components/settings-section';
-import { useHotkeySettings, useSettingsStoreActions } from '/@/renderer/store';
+import { useHotkeySettings, usePlaybackSettings, useSettingsStoreActions } from '/@/renderer/store';
 import { Switch } from '/@/shared/components/switch/switch';
 
 const localSettings = isElectron() ? window.api.localSettings : null;
+const isWindows = (process.platform == 'win32') as boolean;
 
 export const WindowHotkeySettings = () => {
     const { t } = useTranslation();
     const settings = useHotkeySettings();
     const { setSettings } = useSettingsStoreActions();
-    const enableWindowsMediaSession = store.get('mediaSession', false) as boolean;
-    const isWindows = (process.platform == 'win32') as boolean;
+    const { mediaSession: enableWindowsMediaSession } = usePlaybackSettings();
 
     const options: SettingOption[] = [
         {
