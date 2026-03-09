@@ -189,5 +189,8 @@
             "esbuild"
         ]
     },
+    "toolsets": {
+        "appimage": "1.0.2"
+    },
     "productName": "feishin"
 }
