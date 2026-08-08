@@ -10,6 +10,7 @@ import type {
 } from '../shared/types/tag-editor';
 
 import { disableAutoUpdates, isLinux, isMacOS, isWindows } from '../main/env';
+//import log from '../main/logger';
 
 const openItem = async (path: string) => {
     return ipcRenderer.invoke('open-item', path);
@@ -109,10 +110,12 @@ const checkForUpdates = (): Promise<{ updateAvailable: boolean; version?: string
 };
 
 const startPowerSaveBlocker = (full: boolean) => {
+    //log.info('TARUDEBUG startPowerSaveBlocker full:' + full);
     return ipcRenderer.invoke('power-save-blocker-start', { full });
 };
 
 const stopPowerSaveBlocker = () => {
+    //log.info('TARUDEBUG stopPowerSaveBlocker');
     return ipcRenderer.invoke('power-save-blocker-stop');
 };
 

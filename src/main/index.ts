@@ -1045,9 +1045,13 @@ ipcMain.on(
 
 ipcMain.handle('power-save-blocker-start', (_event, { full }: { full: boolean }) => {
     if (powerSaveBlockerId !== null) {
+        log.info('TARUDEBUG: power-save-blocker-start powerSaveBlockerId !== null');
         return powerSaveBlockerId;
+    } else {
+        log.info('TARUDEBUG: power-save-blocker-start powerSaveBlockerId == null');
     }
 
+    log.info('TARUDEBUG: power-save-blocker-start powerSaveBlocker.start');
     powerSaveBlockerId = powerSaveBlocker.start(
         full ? 'prevent-display-sleep' : 'prevent-app-suspension',
     );
@@ -1056,10 +1060,14 @@ ipcMain.handle('power-save-blocker-start', (_event, { full }: { full: boolean })
 
 ipcMain.handle('power-save-blocker-stop', () => {
     if (powerSaveBlockerId !== null) {
+        log.info('TARUDEBUG: power-save-blocker-stop powerSaveBlockerId !== null');
         const stopped = powerSaveBlocker.stop(powerSaveBlockerId);
         powerSaveBlockerId = null;
         return stopped;
+    } else {
+        log.info('TARUDEBUG: power-save-blocker-stop powerSaveBlockerId == null');
     }
+
     return false;
 });
 
