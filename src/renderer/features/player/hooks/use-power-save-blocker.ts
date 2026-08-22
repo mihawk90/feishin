@@ -31,16 +31,13 @@ export const usePowerSaveBlocker = () => {
     }, []);
 
     useEffect(() => {
-        console.info('TARUDEBUG: usePowerSaveBlocker')
-        console.info('TARUDEBUG: preventSleepOnPlayback' + preventSleepOnPlayback);
-        console.info('TARUDEBUG: preventSuspendOnPlayback' + preventSleepOnPlayback);
-        if (!preventSleepOnPlayback || !preventSuspendOnPlayback) return;
+        if (!preventSleepOnPlayback && !preventSuspendOnPlayback) return;
 
         if (status === PlayerStatus.PLAYING) {
-            console.info('TARUDEBUG: status === PlayerStatus.PLAYING startPowerSaveBlocker()');
+            console.info('Playback started - starting power save blocker');
             startPowerSaveBlocker();
         } else {
-            console.info('TARUDEBUG: status !== PlayerStatus.PLAYING stopPowerSaveBlocker()');
+            console.info('Playback stopped - stopping power save blocker');
             stopPowerSaveBlocker();
         }
     }, [
@@ -50,12 +47,6 @@ export const usePowerSaveBlocker = () => {
         stopPowerSaveBlocker,
         preventSuspendOnPlayback,
     ]);
-
-    useEffect(() => {
-        return () => {
-            stopPowerSaveBlocker();
-        };
-    }, [stopPowerSaveBlocker]);
 };
 
 const PowerSaveBlockerHookInner = () => {
@@ -70,7 +61,7 @@ export const PowerSaveBlockerHook = () => {
         (state) => state.window.preventSuspendOnPlayback,
     );
 
-    if (!isElectronEnv || ( !preventSleepOnPlayback && !preventSuspendOnPlayback) ) {
+    if (!isElectronEnv || (!preventSleepOnPlayback && !preventSuspendOnPlayback)) {
         return null;
     }
 
