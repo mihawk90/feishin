@@ -31,11 +31,15 @@ export const usePowerSaveBlocker = () => {
     }, []);
 
     useEffect(() => {
+        console.info('TARUDEBUG: preventSleepOnPlayback' + preventSleepOnPlayback);
+        console.info('TARUDEBUG: preventSuspendOnPlayback' + preventSleepOnPlayback);
         if (!preventSleepOnPlayback || !preventSuspendOnPlayback) return;
 
         if (status === PlayerStatus.PLAYING) {
+            console.info('TARUDEBUG: status === PlayerStatus.PLAYING startPowerSaveBlocker()');
             startPowerSaveBlocker();
         } else {
+            console.info('TARUDEBUG: status !== PlayerStatus.PLAYING stopPowerSaveBlocker()');
             stopPowerSaveBlocker();
         }
     }, [
