@@ -31,6 +31,7 @@ export const usePowerSaveBlocker = () => {
     }, []);
 
     useEffect(() => {
+        console.info('TARUDEBUG: usePowerSaveBlocker')
         console.info('TARUDEBUG: preventSleepOnPlayback' + preventSleepOnPlayback);
         console.info('TARUDEBUG: preventSuspendOnPlayback' + preventSleepOnPlayback);
         if (!preventSleepOnPlayback || !preventSuspendOnPlayback) return;
@@ -69,7 +70,7 @@ export const PowerSaveBlockerHook = () => {
         (state) => state.window.preventSuspendOnPlayback,
     );
 
-    if (!isElectronEnv || !preventSleepOnPlayback || !preventSuspendOnPlayback) {
+    if (!isElectronEnv || ( !preventSleepOnPlayback && !preventSuspendOnPlayback) ) {
         return null;
     }
 
