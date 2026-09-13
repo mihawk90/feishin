@@ -64,16 +64,8 @@ if [ "${arg}" = "wayland-native" ]; then
 	waylandFlags="--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto"
 fi
 
-# this is for Debian-based kernels and ALT respectively
-# https://unix.stackexchange.com/a/303214/145722
-sandboxFlag=""
-if [ "$(sysctl kernel.unprivileged_userns_clone 2>/dev/null)" = "0" ] \
-	|| [ "$(sysctl kernel.userns_restrict 2>/dev/null)" = "1" ]; then
-	sandboxFlag="--no-sandbox"
-fi
-
 mkdir -pv "${localShare}/applications"
 
 export FEISHIN_DESKTOP_EXECUTABLE="${dir}/Feishin-linux-${arch}.AppImage"
-export FEISHIN_DESKTOP_ARGS="${sandboxFlag} ${waylandFlags}"
+export FEISHIN_DESKTOP_ARGS="${waylandFlags}"
 curl --fail https://raw.githubusercontent.com/jeffvli/feishin/refs/heads/development/feishin.desktop.tmpl | envsubst > "${localShare}/applications/org.jeffvli.feishin.desktop"
