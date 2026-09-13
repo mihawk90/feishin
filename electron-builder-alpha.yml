@@ -62,9 +62,6 @@ linux:
     icon: assets/icons/icon.png
     artifactName: ${productName}-${os}-${arch}.${ext}
 
-toolsets:
-    appimage: '1.0.3'
-
 npmRebuild: false
 
 publish:
