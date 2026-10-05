@@ -15,6 +15,7 @@ export const usePowerSaveBlocker = () => {
         if (!utils) return;
 
         try {
+            logger.info('utils.startPowerSaveBlocker(full = ' + preventSleepOnPlayback + ')');
             await utils.startPowerSaveBlocker(preventSleepOnPlayback);
         } catch (error) {
             logger.error('Failed to start power save blocker:', error);
