@@ -35,8 +35,8 @@ export const usePowerSaveBlocker = () => {
         if (!preventSleepOnPlayback && !preventSuspendOnPlayback) return;
 
         if (status === PlayerStatus.PLAYING) {
-            logger.info('Playback started - starting power save blocker');
-            startPowerSaveBlocker();
+            logger.info('Playback started - starting power save blocker; full: ' + preventSleepOnPlayback);
+            startPowerSaveBlocker(preventSleepOnPlayback);
         } else {
             logger.info('Playback stopped - stopping power save blocker');
             stopPowerSaveBlocker();
